@@ -1,5 +1,7 @@
 # Vue 3 + Typescript + Vite
 
+json 转 interface谷歌小插件。 
+
 1. yarn 
 
 2. 运行查看  `yarn dev`
