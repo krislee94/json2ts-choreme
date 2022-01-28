@@ -1,0 +1,20 @@
+{
+    "manifest_version": 2,
+    "name":"json2ts",
+    "version":"1.0",
+    "description":"a simple json to ts interface",
+    "icons": {
+        "16":"images/JSON16.png",
+        "48":"images/JSON48.png",
+        "128":"images/JSON200.png"
+    },
+    "browser_action":{
+       "default_icon":{
+        "48":"images/JSON48.png",
+        "64":"images/JSON64.png"
+       },
+       "default_title":"json2ts",
+       "default_popup":"index.html"
+    }
+
+}
