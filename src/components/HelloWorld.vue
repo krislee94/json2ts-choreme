@@ -13,7 +13,7 @@
       <van-field
         v-model="changeValue"
         name="value"
-        label="转换后的json"
+        label="转换后的interface"
         autosize
         rows="8"
         type="textarea"
