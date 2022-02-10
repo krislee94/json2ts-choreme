@@ -9,8 +9,9 @@
         autosize
         rows="8"
         type="textarea"
+        id="bcpy"
       />
-      <van-field
+      <!-- <van-field
         v-model="changeValue"
         name="value"
         label="转换后的interface"
@@ -18,11 +19,11 @@
         rows="8"
         type="textarea"
         class="cpy"
-      />
-
+      /> -->
+      <div id="cpyf" class="monca-editor" />
       <div style="margin: 16px">
         <van-button round block type="primary" native-type="submit">
-          提交
+          转化
         </van-button>
       </div>
     </van-form>
@@ -32,10 +33,11 @@
   </div>
 </template>
 <script lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { defineComponent } from "vue";
 import { Json2Ts } from "../lib/json2ts";
 import { Dialog } from "vant";
+import * as monaco from "monaco-editor";
 
 export default defineComponent({
   name: "HelloWord",
@@ -47,6 +49,18 @@ export default defineComponent({
     const jsonvalue = ref("");
     const changeValue = ref("");
 
+    //初始化
+    let editor: any = null;
+    onMounted(() => {
+      //@ts-ignore
+      editor = monaco.editor.create(document.getElementById("cpyf"), {
+        language: "typescript",
+        theme: "vs-dark",
+        readOnly: false,
+        minimap: { enabled: true },
+        autoDetectHighContrast: true,
+      });
+    });
     const onSubmit = (values: any) => {
       console.log("submit", values);
       let json2ts = new Json2Ts();
@@ -65,14 +79,17 @@ export default defineComponent({
         jsonvalue.value = result;
 
         changeValue.value = result;
-        //复制
+
+        editor.setValue(result);
+
+        console.log(editor);
       } else {
       }
     };
 
     const onCopy = (e: any) => {
-      // copyDomText(".cpy");
-      let data = changeValue.value;
+      // let data = changeValue.value;
+      let data = editor.getValue();
       let oinput = document.createElement("input");
       oinput.value = data;
       document.body.appendChild(oinput);
@@ -113,5 +130,9 @@ code {
   padding: 2px 4px;
   border-radius: 4px;
   color: #304455;
+}
+.monca-editor {
+  height: 300px;
+  padding-left: 60px;
 }
 </style>
